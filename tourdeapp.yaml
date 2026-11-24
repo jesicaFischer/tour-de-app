@@ -12,6 +12,7 @@ containers:
     env:
 
 branch: origin/main
+services:
   - name: mysql
     image: mysql
     tag: "8.4"
