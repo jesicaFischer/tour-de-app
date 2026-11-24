@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 FROM maven:3-eclipse-temurin-17 AS build
 WORKDIR /var/build
 COPY pom.xml .
@@ -11,9 +12,23 @@ RUN groupadd -r tda_user && useradd -r -g tda_user tda_user
 
 WORKDIR /app
 COPY --from=build --chown=tda_user:tda_user /var/build/target/*.jar app.jar
+=======
+FROM oven/bun:1.4-alpine
+
+WORKDIR /app
+
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile --production
+COPY . .
+>>>>>>> origin/main
 
 ENV PORT=3001
 EXPOSE 3001
 
+<<<<<<< HEAD
 USER tda_user
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+=======
+USER bun
+CMD ["bun", "src/index.ts"]
+>>>>>>> origin/main
