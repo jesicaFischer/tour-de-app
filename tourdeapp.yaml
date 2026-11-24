@@ -1,24 +1,21 @@
 exposedPort: 80
 containers:
   - name: web
-    image: registry.tourde.cloud/die_chipettes/web
+    image: registry.tourde.cloud/<slug>/web
     port: 3000
     env:
       PORT: "3000"
       VITE_API_URL: "/api"
   - name: server
-    image: registry.tourde.cloud/die_chipettes/server
+    image: registry.tourde.cloud/<slug>/server
     port: 3001
     env:
-      MYSQL_HOST: mysql
-      MYSQL_PORT: "3306"
-      MYSQL_DATABASE: product
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
       PORT: "3001"
-
-branch: origin/main
-services:
+      PRODUCT_DB_HOST: 127.0.0.1
+      PRODUCT_DB_NAME: product
+      PRODUCT_DB_PORT: "3306"
+      SPRING_DATASOURCE_PASSWORD: "strongPassword?"
+      SPRING_DATASOURCE_USERNAME: tda_user
   - name: mysql
     image: mysql
     tag: "8.4"
@@ -27,7 +24,7 @@ services:
       MYSQL_ROOT_PASSWORD: password
     port: 3306
   - name: caddy
-    image: registry.tourde.cloud/die_chipettes/caddy
+    image: registry.tourde.cloud/<slug>/caddy
     port: 80
 build:
   - name: web
